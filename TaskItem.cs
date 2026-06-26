@@ -24,11 +24,11 @@ namespace CyberSecurityAwareness3
         }
     }
 
-    // ── Database helper ────────────────────────────────────────────────────────
+    //Database helper
     public class DatabaseHelper
     {
         private string connectionString =
-            "Server=localhost;Database=cyberbot_db;Uid=root;Pwd=;";
+            @"Data source=(localdb)\demo_task;Database=cyberbot_db";
 
         public void InitialiseDatabase()
         {
@@ -39,14 +39,15 @@ namespace CyberSecurityAwareness3
                     conn.Open();
 
                     string sql = @"
-            CREATE TABLE IF NOT EXISTS tasks(
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                title VARCHAR(200) NOT NULL,
-                description TEXT,
-                reminder VARCHAR(200),
-                is_completed TINYINT(1) DEFAULT 0,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            );";
+                       CREATE TABLE tasks (
+                        id INT IDENTITY(1,1) PRIMARY KEY,
+                        title VARCHAR(200) NOT NULL,
+                        description VARCHAR(MAX),
+                        reminder VARCHAR(200),
+                        is_completed BIT DEFAULT 0,
+                        task_dueDate varchar(20)
+                    );
+                                );";
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.ExecuteNonQuery();
