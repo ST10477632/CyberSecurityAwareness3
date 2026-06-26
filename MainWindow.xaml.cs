@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Admin.Directory.directory_v1.Data;
+using MassTransit.Contracts.JobService;
 using MassTransit.Courier.Contracts;
 using System;
 using System.Collections;
@@ -20,9 +21,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CyberSecurityAwareness3
-{
+{//start of namespace class
     public partial class MainWindow : Window
-    {
+    {//start of window class
         // Part 3
         private string pendingTaskTitle = string.Empty;
         private string pendingTaskDesc = string.Empty;
@@ -80,9 +81,8 @@ namespace CyberSecurityAwareness3
 
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        //  SEND
 
+         //  SEND
         private void send(object sender, RoutedEventArgs e)
         {
             string questions = question.Text.ToString().Trim();
@@ -348,9 +348,9 @@ namespace CyberSecurityAwareness3
             question.Clear();
         }
 
-        // ══════════════════════════════════════════════════════════════════════
+
         //  TASK 1 — Task Assistant
-        // ══════════════════════════════════════════════════════════════════════
+
         private void HandleAddTask(string input, string original)
         {
             string title = string.Empty;
@@ -398,6 +398,7 @@ namespace CyberSecurityAwareness3
                 Brushes.LimeGreen, Brushes.LimeGreen);
         }
 
+        //Handle reminder response
         private void HandleReminderResponse(string input, string original)
         {
             string reminder = string.Empty;
@@ -450,6 +451,7 @@ namespace CyberSecurityAwareness3
             pendingTaskDesc = string.Empty;
         }
 
+        //viewtasks
         private void ViewTasks()
         {
             ArrayList tasks = db.GetAllTasks();
@@ -468,6 +470,7 @@ namespace CyberSecurityAwareness3
             activityLog.AddEntry("User viewed all tasks.");
         }
 
+        //handle complete task
         private void HandleCompleteTask(string input)
         {
             int id = ExtractNumber(input);
@@ -490,6 +493,7 @@ namespace CyberSecurityAwareness3
                     Brushes.LimeGreen, Brushes.OrangeRed);
         }
 
+        //handle delete task
         private void HandleDeleteTask(string input)
         {
             int id = ExtractNumber(input);
@@ -512,9 +516,9 @@ namespace CyberSecurityAwareness3
                     Brushes.LimeGreen, Brushes.OrangeRed);
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        //  TASK 2 — Quiz
-        // ══════════════════════════════════════════════════════════════════════
+      
+        //  Task 2 - quiz
+        
         private void StartQuiz()
         {
             quiz.StartQuiz();
@@ -527,6 +531,8 @@ namespace CyberSecurityAwareness3
                 Brushes.LimeGreen, Brushes.LimeGreen);
             ShowQuizQuestion();
         }
+
+        //showquizquestion
 
         private void ShowQuizQuestion()
         {
@@ -566,9 +572,9 @@ namespace CyberSecurityAwareness3
                 ShowQuizQuestion();
         }
 
-        // ══════════════════════════════════════════════════════════════════════
-        //  SHARED HELPERS
-        // ══════════════════════════════════════════════════════════════════════
+       
+        //detectsentiment part 2
+
         private string DetectSentiment(string input)
         {
             string[] worriedWords = { "worried", "scared", "afraid", "anxious", "nervous", "panic" };
@@ -596,6 +602,7 @@ namespace CyberSecurityAwareness3
             return string.Empty;
         }
 
+        //get randonm answer part 2
         private string GetRandomAnswer(string keyword)
         {
             ArrayList matches = new ArrayList();
@@ -614,6 +621,8 @@ namespace CyberSecurityAwareness3
             return -1;
         }
 
+
+        //submit name part 2 changes
 
         private void submit_name(object sender, RoutedEventArgs e)
         {
@@ -658,7 +667,7 @@ namespace CyberSecurityAwareness3
             chats_grid.Visibility = Visibility.Visible;
         }
 
-        // ── Check name ─────────────────────────────────────────────────────────
+        //Check name 
         private bool check_name(string name)
         {
             string[] names = File.ReadAllLines("user_names.txt");
@@ -685,6 +694,6 @@ namespace CyberSecurityAwareness3
 
             if (chats.Items.Count > 0)
                 chats.ScrollIntoView(chats.Items[chats.Items.Count - 1]);
-        }
-    }
-}
+        }//end of appendmessage
+    }//end of windows class
+}//end of namespace class
