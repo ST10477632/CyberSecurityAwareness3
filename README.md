@@ -130,20 +130,18 @@ DATABASE SETUP (MySQL)
 
    USE cyberbot_db;
 
-   CREATE TABLE IF NOT EXISTS tasks (
-       id           INT AUTO_INCREMENT PRIMARY KEY,
-       title        VARCHAR(200) NOT NULL,
-       description  TEXT,
-       reminder     VARCHAR(200),
-       is_completed TINYINT(1)  DEFAULT 0,
-       created_at   DATETIME    DEFAULT CURRENT_TIMESTAMP
+  CREATE TABLE tasks (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description VARCHAR(MAX),
+    reminder VARCHAR(200),
+    is_completed BIT DEFAULT 0,
+    task_dueDate varchar(20)
    );
 
 3. Open TaskItem.cs and update the connection string:
 
-   "Server=localhost;Database=cyberbot_db;Uid=root;Pwd=;"
-
-   Replace Pwd= with your MySQL password if you have one.
+   @"Data source=(localdb)\demo_task;Database=cyberbot_db";
 
 -------------------------------------------------------------
 HOW TO RUN THE PROJECT
