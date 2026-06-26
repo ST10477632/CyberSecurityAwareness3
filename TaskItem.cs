@@ -38,7 +38,7 @@ namespace CyberSecurityAwareness3
                 {
                     conn.Open();
                     string sql = @"
-                        CREATE TABLE IF NOT EXISTS tasks (
+                        create table tasks (
                             id           INT AUTO_INCREMENT PRIMARY KEY,
                             title        VARCHAR(200) NOT NULL,
                             description  TEXT,

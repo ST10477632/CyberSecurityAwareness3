@@ -52,14 +52,32 @@ namespace CyberSecurityAwareness3
         // Part 1: Voice greeting
         private void PlayVoiceGreeting()
         {
+            string path_directory = AppDomain.CurrentDomain.BaseDirectory;
+            string recordPath = path_directory.Replace("\\bin\\Debug", "");
+            string voiceFile = System.IO.Path.Combine(recordPath, "george.wav");
+            PlayVoice(voiceFile);
+        }
+
+        private void PlayVoice(string voice)
+        {
             try
             {
-                string wavPath = System.IO.Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory, "greeting.wav");
-                if (File.Exists(wavPath))
-                    new SoundPlayer(wavPath).Play();
+                if (!File.Exists(voice))
+                {
+                    MessageBox.Show("george.wav file not found.");
+                    return;
+                }
+                using (SoundPlayer speechObj = new SoundPlayer(voice))
+                {
+                    speechObj.Load();
+                    speechObj.PlaySync();
+                }
             }
-            catch { }
+            catch (Exception e)
+            {
+                MessageBox.Show("Audio error: " + e.Message);
+            }
+
         }
 
         // ══════════════════════════════════════════════════════════════════════

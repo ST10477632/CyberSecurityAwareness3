@@ -12,40 +12,28 @@
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center" Width="460">
 
-                <TextBlock FontFamily="Courier New" FontSize="8.5"
-                           Foreground="#00FF88"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,8"><![CDATA[
-  ██████╗██╗   ██╗██████╗ ███████╗██████╗ ██████╗  ██████╗ ████████╗
- ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔═══██╗╚══██╔══╝
- ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝██████╔╝██║   ██║   ██║
- ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗██╔══██╗██║   ██║   ██║
- ╚██████╗   ██║   ██████╔╝███████╗██║  ██║██████╔╝╚██████╔╝   ██║
-  ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝  ╚═════╝    ╚═╝]]>
-                </TextBlock>
-
-                <TextBlock Text="Cybersecurity Awareness Assistant — Part 3"
-                           FontSize="11" Foreground="#7D8590"
+                <TextBlock Text="Cybersecurity Awareness Chatbot"
+                           FontSize="15" Foreground="Blue"
                            FontFamily="Courier New"
                            HorizontalAlignment="Center"
                            Margin="0,0,0,6"/>
 
                 <TextBlock Text="✦ Task Assistant  ✦ Quiz  ✦ NLP  ✦ Activity Log"
-                           FontSize="10" Foreground="#00B4D8"
+                           FontSize="15" Foreground="Black"
                            FontFamily="Courier New"
                            HorizontalAlignment="Center"
                            Margin="0,0,0,25"/>
 
-                <TextBlock Text="Enter your name to begin:"
-                           Foreground="#E6EDF3"
-                           FontFamily="Consolas"
+                <TextBlock Text="Enter your name to begin"
+                           Foreground="Black"
+                           FontFamily="Calibri"
                            Margin="0,0,0,8"/>
 
                 <TextBox x:Name="user_name"
                          Height="42" FontSize="13"
                          FontFamily="Consolas"
-                         Background="#161B22"
-                         Foreground="#E6EDF3"
+                         Background="White"
+                         Foreground="Black"
                          BorderBrush="#30363D"
                          Padding="8,8,8,8"/>
 
