@@ -640,6 +640,16 @@ namespace CyberSecurityAwareness3
             chats_grid.Visibility = Visibility.Visible;
         }
 
+        // ── Check name ─────────────────────────────────────────────────────────
+        private bool check_name(string name)
+        {
+            string[] names = File.ReadAllLines("user_names.txt");
+            foreach (string n in names)
+                if (n.ToLower() == name.ToLower())
+                    return true;
+            return false;
+        }
+
         private void AppendMessage(string name, string message,
                                    Brush nameBrush, Brush messageBrush)
         {
