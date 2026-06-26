@@ -1,0 +1,137 @@
+﻿<Window x:Class="CyberSecurityAwareness3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CyberSecurityAwareness3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!-- USERNAME PAGE -->
+        <Grid x:Name="name_grid" Visibility="Visible">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center" Width="460">
+
+                <TextBlock FontFamily="Courier New" FontSize="8.5"
+                           Foreground="#00FF88"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,8"><![CDATA[
+  ██████╗██╗   ██╗██████╗ ███████╗██████╗ ██████╗  ██████╗ ████████╗
+ ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔═══██╗╚══██╔══╝
+ ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝██████╔╝██║   ██║   ██║
+ ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗██╔══██╗██║   ██║   ██║
+ ╚██████╗   ██║   ██████╔╝███████╗██║  ██║██████╔╝╚██████╔╝   ██║
+  ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝  ╚═════╝    ╚═╝]]>
+                </TextBlock>
+
+                <TextBlock Text="Cybersecurity Awareness Assistant — Part 3"
+                           FontSize="11" Foreground="#7D8590"
+                           FontFamily="Courier New"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,6"/>
+
+                <TextBlock Text="✦ Task Assistant  ✦ Quiz  ✦ NLP  ✦ Activity Log"
+                           FontSize="10" Foreground="#00B4D8"
+                           FontFamily="Courier New"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,25"/>
+
+                <TextBlock Text="Enter your name to begin:"
+                           Foreground="#E6EDF3"
+                           FontFamily="Consolas"
+                           Margin="0,0,0,8"/>
+
+                <TextBox x:Name="user_name"
+                         Height="42" FontSize="13"
+                         FontFamily="Consolas"
+                         Background="#161B22"
+                         Foreground="#E6EDF3"
+                         BorderBrush="#30363D"
+                         Padding="8,8,8,8"/>
+
+                <Button Content="START CHATTING"
+                        Height="42" Margin="0,12,0,0"
+                        Click="submit_name"
+                        Background="#00FF88"
+                        Foreground="#0D1117"
+                        FontWeight="Bold"
+                        FontFamily="Courier New"
+                        FontSize="13"
+                        BorderThickness="0"
+                        Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- CHAT PAGE -->
+        <Grid x:Name="chats_grid" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#161B22"
+                    BorderBrush="#30363D" BorderThickness="0,0,0,1">
+                <StackPanel VerticalAlignment="Center" Margin="20,0,0,0">
+                    <TextBlock
+                        Text="🛡️  CyberBot  |  Cybersecurity Awareness Assistant"
+                        FontSize="14" FontWeight="Bold"
+                        Foreground="#00FF88" FontFamily="Courier New"/>
+                    <TextBlock
+                        Text="Tasks • Quiz • NLP • Activity Log — type 'start quiz' or 'add task' to begin"
+                        FontSize="9" Foreground="#7D8590"
+                        FontFamily="Courier New"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Chat ListView -->
+            <ListView x:Name="chats"
+                      Grid.Row="1"
+                      Background="#0D1117"
+                      BorderThickness="0"
+                      Foreground="#E6EDF3"
+                      FontFamily="Consolas"
+                      FontSize="12"
+                      Padding="10"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+
+            <!-- Input bar -->
+            <Border Grid.Row="2" Background="#161B22"
+                    BorderBrush="#30363D" BorderThickness="0,1,0,0">
+                <Grid Margin="12,10,12,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="110"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="question"
+                             Grid.Column="0"
+                             Height="42"
+                             Background="#21262D"
+                             Foreground="#E6EDF3"
+                             BorderBrush="#30363D"
+                             FontFamily="Consolas"
+                             FontSize="12"
+                             Padding="10,8,10,8"
+                             VerticalContentAlignment="Center"/>
+
+                    <Button Grid.Column="1"
+                            Content="SEND ▶"
+                            Height="42"
+                            Margin="10,0,0,0"
+                            Click="send"
+                            Background="#00FF88"
+                            Foreground="#0D1117"
+                            FontWeight="Bold"
+                            FontFamily="Courier New"
+                            FontSize="12"
+                            BorderThickness="0"
+                            Cursor="Hand"/>
+                </Grid>
+            </Border>
+        </Grid>
+        
+    </Grid>
+</Window>
