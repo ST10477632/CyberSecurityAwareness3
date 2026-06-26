@@ -19,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static CyberSecurityAwareness3.DatabaseHelper;
+using ActivityLog = CyberSecurityAwareness3.DatabaseHelper.ActivityLog;
 
 namespace CyberSecurityAwareness3
 {//start of namespace class
@@ -82,7 +84,7 @@ namespace CyberSecurityAwareness3
         }
 
 
-         //  SEND
+         //SEND
         private void send(object sender, RoutedEventArgs e)
         {
             string questions = question.Text.ToString().Trim();
@@ -99,7 +101,7 @@ namespace CyberSecurityAwareness3
 
             string input = questions.ToLower();
 
-            // Awaiting reminder
+            //Awaiting reminder
             if (awaitingReminder)
             {
                 HandleReminderResponse(input, questions);
@@ -107,7 +109,7 @@ namespace CyberSecurityAwareness3
                 return;
             }
 
-            // Quiz active
+            //Quiz active
             if (quiz.IsActive)
             {
                 HandleQuizAnswer(input);
@@ -627,53 +629,111 @@ namespace CyberSecurityAwareness3
         private void submit_name(object sender, RoutedEventArgs e)
         {
             string filename = "user_names.txt";
-            if (!File.Exists(filename))
-                File.AppendAllText(filename, "auto_create\n");
 
-            string name = user_name.Text.ToString().Trim();
-            if (string.IsNullOrEmpty(name))
+            // Create the file if it doesn't exist
+            if (!File.Exists(filename))
             {
-                MessageBox.Show("Please enter your name before continuing.");
-                return;
+                File.Create(filename).Close();
             }
 
+            // Get the user's name
+            string name = user_name.Text.Trim();
 
-
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please enter your name before continuing.",
+                                "Name Required",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
             bool found = check_name(name);
             username = name;
 
+            // Save new user
             if (!found)
             {
-                File.AppendAllText(filename, name + "\n");
-                AppendMessage("CyberBot",
-                    $"Hey {name}, welcome to CyberBot!\n\n" +
-                    "Here is what I can do:\n" +
-                    "• Ask about passwords, phishing, scams, privacy, malware, vpn, 2fa\n" +
-                    "• Type 'add task' to manage cybersecurity tasks\n" +
-                    "• Type 'start quiz' to test your knowledge\n" +
-                    "• Type 'show activity log' to see recent actions",
-                    Brushes.LimeGreen, Brushes.LimeGreen);
+                File.AppendAllText(filename, name + Environment.NewLine);
+
                 activityLog.AddEntry($"New user registered: {name}");
+
+                // Hide the name page
+                name_grid.Visibility = Visibility.Collapsed;
+
+                // Show the chatbot
+                chats_grid.Visibility = Visibility.Visible;
+
+                AppendMessage(
+                    "CyberBot",
+                    @"
+                 ██████╗██╗   ██╗██████╗ ███████╗██████╗
+                ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗
+                ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝
+                ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗
+                ╚██████╗   ██║   ██████╔╝███████╗██║  ██║
+                 ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝
+
+                       CYBERSECURITY AWARENESS BOT
+
+                " +
+                $"Welcome {name}!\n\n" +
+                "I am your Cybersecurity Awareness Assistant.\n\n" +
+                "Here are some things I can help you with:\n\n" +
+                "• Ask about passwords\n" +
+                "• Learn about phishing scams\n" +
+                "• Learn about malware\n" +
+                "• Learn about VPNs\n" +
+                "• Learn about 2FA\n" +
+                "• Add cybersecurity tasks\n" +
+                "• Set reminders\n" +
+                "• Start the cybersecurity quiz\n" +
+                "• Show your activity log\n\n" +
+                "Type 'start quiz' to begin or ask me a cybersecurity question.",
+                    Brushes.LimeGreen,
+                    Brushes.White);
             }
             else
             {
-                AppendMessage("CyberBot",
-                    $"Welcome back, {name}! How can I help you stay safe online today?",
-                    Brushes.LimeGreen, Brushes.LimeGreen);
+
                 activityLog.AddEntry($"Returning user logged in: {name}");
+
+                // Hide the name page
+                name_grid.Visibility = Visibility.Collapsed;
+
+                // Show the chatbot
+                chats_grid.Visibility = Visibility.Visible;
+
+                AppendMessage(
+                    "CyberBot",
+                    $"Welcome back, {name}!\n\n" +
+                    "How can I help you stay safe online today?",
+                    Brushes.LimeGreen,
+                    Brushes.White);
             }
 
-            name_grid.Visibility = Visibility.Hidden;
-            chats_grid.Visibility = Visibility.Visible;
+            // Clear the textbox
+            user_name.Clear();
+
+            // Put the cursor into the chat input box
+            question.Focus();
         }
 
         //Check name 
         private bool check_name(string name)
         {
-            string[] names = File.ReadAllLines("user_names.txt");
+            string filename = "user_names.txt";
+
+            if (!File.Exists(filename))
+                return false;
+
+            string[] names = File.ReadAllLines(filename);
+
             foreach (string n in names)
-                if (n.ToLower() == name.ToLower())
+            {
+                if (n.Trim().Equals(name, StringComparison.OrdinalIgnoreCase))
                     return true;
+            }
+
             return false;
         }
 
